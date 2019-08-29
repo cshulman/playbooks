@@ -3,7 +3,7 @@
 - name: run the playbook tasks on the localhost
   hosts: 127.0.0.1
   vars:
-    ocp_version: 4.1.8
+    ocp_version: 4.1.13
   connection: local
   become: yes
   tasks:

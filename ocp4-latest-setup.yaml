@@ -1,0 +1,59 @@
+---
+
+- name: run the playbook tasks on the localhost
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  tasks:
+
+  - name: url lookup splits lines by default
+    set_fact:
+      html_lines: "{{ lookup('url', 'https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/', wantlist=True) }}"
+
+  - name: get relevant list items
+    set_fact:
+      html_install: "{{ html_lines |select('search', 'href') | select('search', 'openshift-install-linux-')| map('regex_replace', '.*href=\"(.*)\">(.*)</a>.*', '\\1') | list }}"
+      html_client: "{{ html_lines |select('search', 'href') | select('search', 'openshift-client-linux-') | map('regex_replace', '.*href=\"(.*)\">(.*)</a>.*', '\\1') | list }}"
+
+  - name: create link vars
+    set_fact:
+      html_install_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/{{ html_install[0] }}"
+      html_client_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/{{ html_client[0] }}"
+
+  - debug:
+      var: html_lines
+      verbosity: 1
+
+  - debug:
+      var: html_install_link
+      verbosity: 1
+
+  - debug:
+      var: html_client
+      verbosity: 1
+
+  - debug:
+      msg:
+      - "Install Link: {{ html_install_link }}"
+      - "Client Link: {{ html_client_link }}"
+
+  - name: Download and unpack Openshift 4 client
+    unarchive:
+      src: "{{ html_install_link }}"
+      dest: /usr/local/bin
+      remote_src: yes
+
+  - name: Download and unpack Openshift 4 client
+    unarchive:
+      src:  "{{ html_client_link }}"
+      dest: /usr/local/bin
+      remote_src: yes
+
+  - name: Install a list of Dev tools
+    yum:
+      name:
+        - wget
+        - curl
+        - git
+        - httpd-tools
+      state: present
