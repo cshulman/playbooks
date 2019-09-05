@@ -11,14 +11,17 @@
   - name: Download and unpack Openshift 4 client
     unarchive:
       src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{ ocp_version }}/openshift-client-linux-{{ ocp_version }}.tar.gz
-      dest: /usr/local/bin
+      dest: /usr/bin
       remote_src: yes
 
   - name: Download and unpack Openshift 4 installer
     unarchive:
       src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{ ocp_version }}/openshift-install-linux-{{ ocp_version }}.tar.gz
-      dest: /usr/local/bin
+      dest: /usr/bin
       remote_src: yes
+
+  - name: Setup oc completion
+    shell: "oc completion bash >/etc/bash_completion.d/openshift"
 
   - name: Download and unpack AWS CLI
     unarchive:
