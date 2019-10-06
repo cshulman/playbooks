@@ -61,6 +61,11 @@
   - name: Install AWS CLI
     shell: "awscli-bundle/install -i /usr/local/aws -b /bin/aws"
 
+  - name: Cleanup AWS CLI files
+    file:
+      path: awscli-bundle
+      state: absent
+
   - name: Install a list of Dev tools
     yum:
       name:
@@ -69,7 +74,3 @@
         - git
         - httpd-tools
       state: present
-
-
-  - name: Cleanup AWS CLI files
-    shell: "rm -rf  awscli-bundle"
