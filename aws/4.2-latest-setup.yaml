@@ -37,16 +37,16 @@
       - "Install Link: {{ html_install_link }}"
       - "Client Link: {{ html_client_link }}"
 
-  - name: Download and unpack Openshift 4 client
+  - name: Download and unpack Openshift 4 installer
     unarchive:
       src: "{{ html_install_link }}"
-      dest: /usr/local/bin
+      dest: /usr/bin
       remote_src: yes
 
   - name: Download and unpack Openshift 4 client
     unarchive:
       src:  "{{ html_client_link }}"
-      dest: /usr/local/bin
+      dest: /usr/bin
       remote_src: yes
 
   - name: Setup oc completion
