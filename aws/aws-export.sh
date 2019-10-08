@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GUID=GUID
+export CLUSTERNAME=CLUSTERNAME
 export AWSKEY=YOURACCESSKEY
 export AWSSECRETKEY=YOURSECRETKEY
 export REGION=us-east-2
@@ -24,6 +24,6 @@ cat $HOME/.aws/credentials
 
 
 echo "Generating ssh"
-ssh-keygen -f ~/.ssh/cluster-${GUID}-key -N ''
+ssh-keygen -f ~/.ssh/cluster-${CLUSTERNAME}-key -N ''
 
 echo "Done with all of the things"
