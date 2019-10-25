@@ -1,5 +1,5 @@
 
-##GA Versions:##
+#GA Versions:#
 - Currently there are 2 versions that are GA'd. 
 
 	- To run the playbook as is and install the client & installer for 4.2 - the most recent release:
@@ -14,7 +14,7 @@
 		sudo ansible-playbook playbooks/aws/version-specific/hard-coded-version-setup.yaml
 
 
-##Dev Preview Versions:##
+#Dev Preview Versions:#
 	- To install the latest Dev Preview release (currently a 4.3 nightly):
 		sudo ansible-playbook playbooks/aws/DPlatest.yaml
 
