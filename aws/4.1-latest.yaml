@@ -8,7 +8,7 @@
 
   - name: url lookup splits lines by default
     set_fact:
-      html_lines: "{{ lookup('url', 'https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/', wantlist=True) }}"
+      html_lines: "{{ lookup('url', 'https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.1/', wantlist=True) }}"
 
   - name: get relevant list items
     set_fact:
@@ -17,8 +17,8 @@
 
   - name: create link vars
     set_fact:
-      html_install_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/{{ html_install[0] }}"
-      html_client_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/{{ html_client[0] }}"
+      html_install_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.1/{{ html_install[0] }}"
+      html_client_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-4.1/{{ html_client[0] }}"
 
   - debug:
       var: html_lines
