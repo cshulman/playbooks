@@ -1,7 +1,7 @@
 Modification of https://gist.github.com/huddlesj/5a2356b9f8f34eb5a131a4574f9345c4
 
 # Playbook Information:
-***Note that the current version of this repository ony includes an AWS setup & will install the AWS CLI. If you do not need or want, comment those lines from the playbook you are using***
+***Note that the current version of this repository ony includes an AWS setup & will install the AWS CLI. If you do not need or want it, comment those lines from the playbook you are using***
 
 
 ## GA Versions:
