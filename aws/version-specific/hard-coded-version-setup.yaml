@@ -26,14 +26,17 @@
       src: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
       dest: ./
       remote_src: yes
+    tags: aws
 
   - name: Install AWS CLI
     shell: "awscli-bundle/install -i /usr/local/aws -b /bin/aws"
+    tags: aws
 
   - name: Cleanup AWS CLI files
     file:
       path: awscli-bundle
       state: absent
+    tags: aws
 
   - name: Install a list of Dev tools
     yum:
