@@ -2,15 +2,13 @@
 
 - name: run the playbook tasks on the localhost
   hosts: 127.0.0.1
-  vars:
-    ocp_version: 4.2
   connection: local
   become: yes
   tasks:
 
   - name: url lookup splits lines by default
     set_fact:
-      html_lines: "{{ lookup('url', 'https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-{{ ocp_version }}/', wantlist=True) }}"
+      html_lines: "{{ lookup('url', 'https://mirror.openshift.com/pub/openshift-v4/clients/ocp-dev-preview/latest/', wantlist=True) }}"
 
   - name: get relevant list items
     set_fact:
@@ -19,8 +17,8 @@
 
   - name: create link vars
     set_fact:
-      html_install_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-{{ ocp_version }}/{{ html_install[0] }}"
-      html_client_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-{{ ocp_version }}/{{ html_client[0] }}"
+      html_install_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp-dev-preview/latest/{{ html_install[0] }}"
+      html_client_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp-dev-preview/latest/{{ html_client[0] }}"
 
   - debug:
       var: html_lines
@@ -59,14 +57,17 @@
       src: https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
       dest: ./
       remote_src: yes
+    tags: aws
 
   - name: Install AWS CLI
     shell: "awscli-bundle/install -i /usr/local/aws -b /bin/aws"
+    tags: aws
 
   - name: Cleanup AWS CLI files
     file:
       path: awscli-bundle
       state: absent
+    tags: aws
 
   - name: Install a list of Dev tools
     yum:
