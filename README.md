@@ -1,8 +1,8 @@
 Modification of https://gist.github.com/huddlesj/5a2356b9f8f34eb5a131a4574f9345c4
 
 # Playbook Information:
-***Note that by default all playbooks will install the AWS CLI. If you do not need or want to install it, run the playbooks with the following flag to skip those tasks. 
-<br> **--skip-tags "aws"** <br>***
+***Note that by default all playbooks will install the AWS CLI. If you do not need or want to install it, run the playbooks with the following flag to skip those tasks.***
+<br> **--skip-tags "aws"** <br>
 
 
 ## GA Versions:
