@@ -46,6 +46,9 @@ while getopts ":k:s:c:r:" opt; do
 done
 shift $((OPTIND -1))
 
+###############
+# Main Script
+###############
 if [ -z "${CLUSTERNAME}" -o -z "${AWSKEY}" -o -z "${AWSSECRETKEY}" -o -z "${REGION}" ]; then
   usage
 else
