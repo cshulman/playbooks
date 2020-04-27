@@ -2,13 +2,15 @@
 
 - name: run the playbook tasks on the localhost
   hosts: 127.0.0.1
+  vars:
+    ocp_version: 4.3
   connection: local
   become: yes
   tasks:
 
   - name: url lookup splits lines by default
     set_fact:
-      html_lines: "{{ lookup('url', 'https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/', wantlist=True) }}"
+      html_lines: "{{ lookup('url', 'https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-{{ ocp_version }}/', wantlist=True) }}"
 
   - name: get relevant list items
     set_fact:
@@ -17,8 +19,8 @@
 
   - name: create link vars
     set_fact:
-      html_install_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/{{ html_install[0] }}"
-      html_client_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/{{ html_client[0] }}"
+      html_install_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-{{ ocp_version }}/{{ html_install[0] }}"
+      html_client_link: "http://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest-{{ ocp_version }}/{{ html_client[0] }}"
 
   - debug:
       var: html_lines

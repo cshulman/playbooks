@@ -24,6 +24,6 @@ cat $HOME/.aws/credentials
 
 
 echo "Generating ssh"
-ssh-keygen -f ~/.ssh/cluster-${CLUSTERNAME}-key -N ''
+ssh-keygen -f ~/.ssh/${CLUSTERNAME}-key -N ''
 
 echo "Done with all of the things"

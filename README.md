@@ -5,27 +5,50 @@ Modification of https://gist.github.com/huddlesj/5a2356b9f8f34eb5a131a4574f9345c
 <br> **`--skip-tags "aws"`** <br>
 
 
-## GA Versions:
-- Currently there are 2 versions that are GA'd & 4.2 is the latest release. 
+## OCP 4 GA Release:
 
-	- To run the playbook as is and install the client & installer for 4.2:<br>
-		**`sudo ansible-playbook playbooks/ocp4-latest.yaml`**
+### Latest OCP 4 Versions: <br>
 
-	- To specify an install of the latest of a specific version (currently only supported for 4.1):<br>
-	 	**`sudo ansible-playbook playbooks/ocp4-latest.yaml -e ocp_version=4.1`**
+##### Latest GA Version:
+To install the latest GA version of OCP 4.x, run the `ocp4-latest.yaml` playbook. The version OCP client and installer version it will install will vary based on what has been released and can be [found here](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/). <br>
 
-	- To specify an install of a specific version (ex. 4.2.1):<br>
-		**`sudo ansible-playbook playbooks/version-specific/version-specific-setup.yaml -e ocp_version=4.2.1`**
-		
-	- Lastly, if you prefer to to hard code the version in the playbook, you can choose to update the src for the client & installer and run:<br>
-		**`sudo ansible-playbook playbooks/version-specific/hard-coded-version-setup.yaml`**
+- To install the latest OCP version with the AWS CLI: <br>
+         **`sudo ansible-playbook playbooks/ocp4-latest.yaml`**
+
+- To install the latest OCP version **without** the AWS CLI: <br>
+         **`sudo ansible-playbook playbooks/ocp4-latest.yaml --skip-tags "aws"`**
+
+
+##### Latest of *Specific* GA Version:
+You can also choose to install the latest GA version from a *specific OCP 4.x release*. To do so utilize the `version-latest.yaml` playbook, and specify the OCP 4.x version you are interested in. (This playbook currently defaults to 4.3, the latest GA release of OCP 4)
+
+- To install the latest OCP 4.2 (other GA versions can be specified): <br>
+	**`sudo ansible-playbook playbooks/version-latest.yaml -e ocp_version=4.2`**
+
+
+### Specific OCP 4 Versions: <br>
+You can also choose to install a very *specific OCP 4 version* by utilizing the playbooks in the **`playbooks/version-specific/`** directory.
+
+- To specify an install of a specific version (ex. 4.3.13): <br>
+	**`sudo ansible-playbook playbooks/version-specific/specific-version.yaml -e ocp_version=4.3.13`**
+
+*Note: Since an OCP 4 version is specified, it will be critical for that version to exist to avoid failure on install. These methods are useful when a particular OCP 4 version is targeted for installation.*
+
+You can also choose the specific version to install using the full link from the [OCP 4 repository](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/). This can be done with the `playbooks/version-specific/link-specified.yaml` playbook and can be done one of 2 ways. <br>
+
+1. Pass Parameters: <br>
+	- After the client and installer version and links are identified, those values are passed as parameters to the `link-specified.yaml` playbook.
+
+        **`sudo ansible-playbook playbooks/version-specific/link-specified.yaml -e client_link=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.3.13/openshift-client-linux-4.3.13.tar.gz -e install_link=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.3.13/openshift-install-linux-4.3.13.tar.gz`**
+
+2. Modify Playbook: <br>
+	- This will require modifying the `link-specified.yaml` playbook directly and replacing the default values set the client `client_link` and installer `install_link` variables. Then the playbook is run as is.
+
+        **`sudo ansible-playbook playbooks/version-specific/link-specified.yaml`**
 
 
 ## Dev Preview Version:<br>
-- The current Dev Preview version is 4.3.
+If you're looking to install a version that has not yet been released, you can follow the instructions for using the `playbooks/version-specific/link-specified.yaml` playbook and specify with links found from [ocp-dev-preview](https://mirror.openshift.com/pub/openshift-v4/clients/ocp-dev-preview/).
 
-	- To install the latest Dev Preview release (currently a 4.3 nightly):<br>
-		**`sudo ansible-playbook playbooks/DPlatest.yaml`**
-		
-	- To install a specific nightly build, update the src for the client & installer and run:<br>
-                **`sudo ansible-playbook playbooks/version-specific/hard-coded-version-setup.yaml`**
+Alternatively, you can utilize the `DPlatest.yaml` playbook to install the latest developer preview version of OCP 4.x. <br>
+  **`sudo ansible-playbook playbooks/DPlatest.yaml`**
