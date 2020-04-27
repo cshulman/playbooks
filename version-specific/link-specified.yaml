@@ -3,20 +3,26 @@
 - name: run the playbook tasks on the localhost
   hosts: 127.0.0.1
   vars:
-    ocp_version: 4.1.13
+    client_link: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.3.13/openshift-client-linux-4.3.13.tar.gz
+    install_link: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.3.13/openshift-install-linux-4.3.13.tar.gz
   connection: local
   become: yes
   tasks:
 
+  - debug:
+      msg:
+      - "Install Link: {{ client_link }}"
+      - "Client Link: {{ install_link }}"
+
   - name: Download and unpack Openshift 4 client
     unarchive:
-      src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{ ocp_version }}/openshift-client-linux-{{ ocp_version }}.tar.gz
+      src: "{{ client_link }}"
       dest: /usr/bin
       remote_src: yes
 
   - name: Download and unpack Openshift 4 installer
     unarchive:
-      src: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{ ocp_version }}/openshift-install-linux-{{ ocp_version }}.tar.gz
+      src: "{{ install_link }}"
       dest: /usr/bin
       remote_src: yes
 
